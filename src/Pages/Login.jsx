@@ -1,227 +1,193 @@
-import React, { useState, useEffect } from 'react';
-import '../styles/Login.css';
+import React, { useState } from "react";
+import "../Styles/Login.css";
 
 const Login = () => {
-  const [formData, setFormData] = useState({ email: '', password: '' });
-  const [errors, setErrors] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    captcha: "",
+    notRobot: false,
+  });
 
-  useEffect(() => {
-    setMounted(true);
-    // Load saved email if "Remember me" was used previously
-    const savedEmail = localStorage.getItem('smartcng_email');
-    if (savedEmail) {
-      setFormData((prev) => ({ ...prev, email: savedEmail }));
-      setRememberMe(true);
-    }
-  }, []);
+  const [generatedCaptcha] = useState(() => {
+    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    return Array.from({ length: 6 }, () =>
+      chars.charAt(Math.floor(Math.random() * chars.length))
+    ).join("");
+  });
+
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }));
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
+    setErrors({ ...errors, [name]: "" });
   };
 
-  const validateForm = () => {
+  const validate = () => {
     const newErrors = {};
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email address is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
-    }
-    if (!formData.password) {
-      newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
-    }
+    if (!formData.email) newErrors.email = "Email is required";
+    else if (!/\S+@\S+\.\S+/.test(formData.email))
+      newErrors.email = "Enter a valid email";
+
+    if (!formData.password) newErrors.password = "Password is required";
+    else if (formData.password.length < 6)
+      newErrors.password = "Password must be at least 6 characters";
+
+    if (!formData.captcha)
+      newErrors.captcha = "Please enter the captcha";
+    else if (formData.captcha.toUpperCase() !== generatedCaptcha)
+      newErrors.captcha = "Captcha does not match";
+
+    if (!formData.notRobot)
+      newErrors.notRobot = "Please verify you are not a robot";
+
     return newErrors;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const validationErrors = validateForm();
+    const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
-
-    setIsLoading(true);
-    setErrors({});
-
-    try {
-      // 🔁 Replace this block with your real API call:
-      // const response = await fetch('/api/auth/login', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData),
-      // });
-      // const data = await response.json();
-
-      await new Promise((resolve) => setTimeout(resolve, 1200)); // demo delay
-
-      if (rememberMe) {
-        localStorage.setItem('smartcng_email', formData.email);
-      } else {
-        localStorage.removeItem('smartcng_email');
-      }
-
-      // Store token & redirect:
-      // localStorage.setItem('token', data.token);
-      // window.location.href = '/dashboard';
-
-      console.log('Login successful:', formData);
-      setFormData({ email: '', password: '' });
-    } catch (err) {
-      setErrors({ submit: 'Unable to sign in. Please try again.' });
-    } finally {
-      setIsLoading(false);
-    }
+    console.log("Login submitted:", formData);
+    alert("Login successful! (demo)");
   };
 
   return (
-    <div className="login-page">
-      {/* Decorative background elements */}
-      <div className="bg-shape bg-shape-1"></div>
-      <div className="bg-shape bg-shape-2"></div>
-      <div className="bg-shape bg-shape-3"></div>
-
-      <div className={`login-card ${mounted ? 'mounted' : ''}`}>
-        {/* Brand / Logo */}
-        <div className="login-brand">
-          <div className="brand-icon">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M13 2L4.5 13.5H11L10 22L19.5 10H13L13 2Z"
-                fill="currentColor"
-                stroke="currentColor"
-                strokeWidth="1.2"
-                strokeLinejoin="round"
-              />
-            </svg>
+    <div className="login-container">
+      {/* LEFT SIDE - IMAGE */}
+      <div className="login-left">
+        <div className="overlay">
+          <div className="brand">
+            <div className="brand-logo">⛽</div>
+            <h1>Smart CNG</h1>
+            <p>Queue Availability Tracker</p>
           </div>
-          <h1 className="brand-title">Smart CNG</h1>
-          <p className="brand-tagline">Clean Fuel · Smart Living</p>
+          <div className="tagline">
+            <h2>Skip the Wait.</h2>
+            <h2>Fuel Smarter.</h2>
+            <p>Real-time CNG station queues, live updates, and smarter fueling decisions — all in one place.</p>
+          </div>
         </div>
+      </div>
 
-        <div className="login-header">
-          <h2>Welcome back</h2>
-          <p>Sign in to manage your CNG stations & bookings</p>
-        </div>
+      {/* RIGHT SIDE - LOGIN FORM */}
+      <div className="login-right">
+        <div className="login-form-wrapper">
+          <div className="form-header">
+            <h2>Welcome Back</h2>
+            <p>Sign in to check live CNG queue status</p>
+          </div>
 
-        <form className="login-form" onSubmit={handleSubmit} noValidate>
-          {/* Email */}
-          <div className="form-group">
-            <label htmlFor="email">Email Address</label>
-            <div className={`input-wrap ${errors.email ? 'has-error' : ''}`}>
-              <span className="input-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <polyline points="22,6 12,13 2,6" />
-                </svg>
-              </span>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="you@example.com"
-                value={formData.email}
-                onChange={handleChange}
-                disabled={isLoading}
-                autoComplete="email"
-              />
+          <form onSubmit={handleSubmit} noValidate>
+            {/* Email */}
+            <div className="form-group">
+              <label htmlFor="email">Email Address</label>
+              <div className="input-wrapper">
+                <span className="input-icon">✉</span>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="you@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={errors.email ? "error" : ""}
+                />
+              </div>
+              {errors.email && <span className="error-text">{errors.email}</span>}
             </div>
-            {errors.email && <span className="error-text">{errors.email}</span>}
-          </div>
 
-          {/* Password */}
-          <div className="form-group">
-            <div className="label-row">
+            {/* Password */}
+            <div className="form-group">
               <label htmlFor="password">Password</label>
-              <a href="/forgot-password" className="link-muted">
-                Forgot password?
-              </a>
+              <div className="input-wrapper">
+                <span className="input-icon">🔒</span>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className={errors.password ? "error" : ""}
+                />
+              </div>
+              {errors.password && (
+                <span className="error-text">{errors.password}</span>
+              )}
             </div>
-            <div className={`input-wrap ${errors.password ? 'has-error' : ''}`}>
-              <span className="input-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
-              </span>
-              <input
-                id="password"
-                name="password"
-                type={showPassword ? 'text' : 'password'}
-                placeholder="Enter your password"
-                value={formData.password}
-                onChange={handleChange}
-                disabled={isLoading}
-                autoComplete="current-password"
-              />
-              <button
-                type="button"
-                className="toggle-password"
-                onClick={() => setShowPassword((v) => !v)}
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
-                tabIndex={-1}
-              >
-                {showPassword ? (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
-                    <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
-                    <line x1="1" y1="1" x2="23" y2="23" />
-                  </svg>
-                ) : (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                    <circle cx="12" cy="12" r="3" />
-                  </svg>
-                )}
-              </button>
+
+            {/* Captcha */}
+            <div className="form-group">
+              <label htmlFor="captcha">Captcha Verification</label>
+              <div className="captcha-row">
+                <input
+                  type="text"
+                  id="captcha"
+                  name="captcha"
+                  placeholder="Enter captcha"
+                  value={formData.captcha}
+                  onChange={handleChange}
+                  className={errors.captcha ? "error" : ""}
+                />
+                <div className="captcha-box" title="Captcha">
+                  {generatedCaptcha.split("").map((ch, i) => (
+                    <span
+                      key={i}
+                      style={{ transform: `rotate(${Math.random() * 20 - 10}deg)` }}
+                    >
+                      {ch}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              {errors.captcha && (
+                <span className="error-text">{errors.captcha}</span>
+              )}
             </div>
-            {errors.password && <span className="error-text">{errors.password}</span>}
-          </div>
 
-          {/* Remember me */}
-          <label className="checkbox-row">
-            <input
-              type="checkbox"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
-              disabled={isLoading}
-            />
-            <span className="checkbox-custom" />
-            <span className="checkbox-label-text">Remember me for 30 days</span>
-          </label>
+            {/* Not a Robot */}
+            <div className="form-group">
+              <label className="robot-check">
+                <input
+                  type="checkbox"
+                  name="notRobot"
+                  checked={formData.notRobot}
+                  onChange={handleChange}
+                />
+                <span className="checkmark"></span>
+                <span className="robot-label">
+                  <strong>I'm not a robot</strong>
+                  <small>Protected by reCAPTCHA</small>
+                </span>
+              </label>
+              {errors.notRobot && (
+                <span className="error-text">{errors.notRobot}</span>
+              )}
+            </div>
 
-          {errors.submit && <div className="alert-error">{errors.submit}</div>}
+            {/* Forgot */}
+            <div className="forgot-row">
+              <a href="#forgot">Forgot password?</a>
+            </div>
 
-          <button type="submit" className="btn-primary" disabled={isLoading}>
-            {isLoading ? (
-              <>
-                <span className="spinner" />
-                Signing in...
-              </>
-            ) : (
-              'Sign In'
-            )}
-          </button>
-        </form>
+            {/* Submit */}
+            <button type="submit" className="btn-signin">
+              Sign In
+            </button>
 
-        <div className="divider">
-          <span>New to Smart CNG?</span>
+            <p className="signup-text">
+              Don't have an account? <a href="#signup">Sign up</a>
+            </p>
+          </form>
         </div>
-
-        <a href="/signup" className="btn-secondary">
-          Create an Account
-        </a>
-
-        <p className="footer-note">
-          © {new Date().getFullYear()} Smart CNG · All rights reserved
-        </p>
       </div>
     </div>
   );
