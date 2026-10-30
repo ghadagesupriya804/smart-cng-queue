@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import "../Styles/Contact.css";
 
@@ -164,6 +165,14 @@ const Contact = () => {
         </div>
 
       </section>
+      {/* --- FOOTER --- */}
+      <footer className="about-footer">
+        <p>© 2026 Smart CNG Queue Tracker. All rights reserved.</p>
+        <div className="footer-links">
+          <Link to="/contact">Contact Us</Link>
+          <Link to="/signup">Create Account</Link>
+        </div>
+      </footer>
     </div>
   );
 };
