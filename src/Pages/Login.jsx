@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../Styles/Login.css";
@@ -263,7 +262,8 @@ const Login = () => {
 
             {/* FORGOT PASSWORD */}
             <div className="forgot-row">
-              <a href="#forgot">Forgot password?</a>
+              {/* ✅ Lowercase path fixed */}
+              <Link to="/forgot-password">Forgot password?</Link>
             </div>
 
             {/* SIGN IN */}
@@ -271,8 +271,10 @@ const Login = () => {
               Sign In
             </button>
 
-             <p className="signup-text">
-              Don't have an account? <Link to="/Signup">Sign up</Link>
+            <p className="signup-text">
+              Don't have an account?{" "}
+              {/* ✅ Lowercase path fixed */}
+              <Link to="/signup">Sign up</Link>
             </p>
           </form>
         </div>
