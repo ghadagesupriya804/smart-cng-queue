@@ -6,7 +6,7 @@ const About = () => {
   return (
     <div className="about-container">
       {/* --- NAVBAR --- */}
-      <nav className="about-navbar">
+      {/* <nav className="about-navbar">
         <Link to="/" className="nav-brand">
           <div className="nav-logo">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -23,7 +23,7 @@ const About = () => {
           <Link to="/about" className="active">About Us</Link>
           <Link to="/login" className="nav-btn">Login</Link>
         </div>
-      </nav>
+      </nav> */}
 
       {/* --- HERO SECTION --- */}
       <section className="about-hero">

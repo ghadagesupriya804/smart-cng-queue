@@ -1,28 +1,25 @@
-// import React from 'react';
-// import Login from './Pages/Login';
-
-// function App() {
-//   return <Login />;
-// }
-
-// export default App;
-// App.jsx
-import { Routes, Route, Navigate } from "react-router-dom";
-import Login from "./Pages/Login"; // Adjust path if needed
-import Signup from "./Pages/Signup"; // Adjust path if needed
-import ForgotPassword from "./Pages/ForgotPassword"; // Adjust path if needed
+import { Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home"; // Adjust path if needed
+import About from "./Pages/About";
+import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
+import ForgotPassword from "./Pages/ForgotPassword";
+import Header from "./Pages/Header"; // Your Header component
 
 function App() {
   return (
-    <Routes>
-      {/* Redirect root URL to login */}
-      <Route path="/" element={<Navigate to="/login" />} />
+    <>
+      <Header /> {/* Put your header here so it shows on all pages */}
       
-      {/* Define your pages */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-    </Routes>
+      <Routes>
+        <Route path="/" element={<Home />} />
+         <Route path="/about" element={<About />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        {/* Add other routes here */}
+      </Routes>
+    </>
   );
 }
 
