@@ -1,0 +1,267 @@
+/* ---------- GLOBAL RESETS ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", "Poppins", sans-serif;
+}
+
+.about-container {
+  background: #f5f7fa;
+  min-height: 100vh;
+  color: #0f2a3a;
+}
+
+/* ---------- NAVBAR ---------- */
+.about-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #0f2a3a;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.nav-logo {
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 168, 150, 0.1);
+  padding: 6px;
+  border-radius: 10px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #6b7c93;
+  font-weight: 600;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #00a896;
+}
+
+.nav-links .nav-btn {
+  background: #0f2a3a;
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 8px;
+}
+
+.nav-links .nav-btn:hover {
+  background: #00a896;
+  color: #fff;
+}
+
+/* ---------- HERO SECTION ---------- */
+.about-hero {
+  background: linear-gradient(135deg, rgba(15, 42, 58, 0.95), rgba(0, 168, 150, 0.85)),
+    url("https://images.unsplash.com/photo-1527018601619-a508a2be00cd?auto=format&fit=crop&w=1600&q=80");
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  text-align: center;
+  padding: 120px 20px;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-content h1 {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.hero-content p {
+  font-size: 18px;
+  line-height: 1.6;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ---------- MISSION SECTION ---------- */
+.about-mission {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  max-width: 1100px;
+  margin: 100px auto;
+  padding: 0 20px;
+}
+
+.mission-image {
+  flex: 1;
+}
+
+.mission-image img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+}
+
+.mission-text {
+  flex: 1;
+}
+
+.mission-text h2 {
+  font-size: 36px;
+  color: #0f2a3a;
+  margin-bottom: 20px;
+}
+
+.mission-text p {
+  font-size: 16px;
+  color: #6b7c93;
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+.mission-list {
+  list-style: none;
+  margin-top: 25px;
+}
+
+.mission-list li {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f2a3a;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mission-list li::before {
+  content: "✔";
+  color: #00a896;
+  font-size: 18px;
+}
+
+/* ---------- FEATURES GRID ---------- */
+.about-features {
+  background: #ffffff;
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.about-features h2 {
+  font-size: 36px;
+  color: #0f2a3a;
+  margin-bottom: 50px;
+}
+
+.features-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  flex: 1;
+  min-width: 280px;
+  background: #f5f7fa;
+  padding: 40px 30px;
+  border-radius: 16px;
+  transition: 0.3s;
+  border: 1px solid #e1e8ed;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 168, 150, 0.15);
+  border-color: #00a896;
+}
+
+.feature-icon {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  font-size: 20px;
+  color: #0f2a3a;
+  margin-bottom: 12px;
+}
+
+.feature-card p {
+  font-size: 15px;
+  color: #6b7c93;
+  line-height: 1.6;
+}
+
+/* ---------- FOOTER ---------- */
+.about-footer {
+  background: #0f2a3a;
+  color: #fff;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.about-footer p {
+  opacity: 0.7;
+  margin-bottom: 15px;
+}
+
+.footer-links a {
+  color: #00a896;
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: 600;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .about-navbar {
+    padding: 20px;
+  }
+  
+  .about-mission {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .hero-content h1 {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav-links {
+    display: none; /* Hides links on mobile for simplicity */
+  }
+}
