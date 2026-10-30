@@ -190,16 +190,61 @@ const Signup = () => {
                         </div>
 
                         {/* Terms Checkbox */}
-                        <div className="form-group">
-                            <label className="robot-check" style={{ padding: "10px 14px" }}>
-                                <input type="checkbox" name="terms" checked={formData.terms} onChange={handleChange} />
-                                <span className="checkmark"></span>
-                                <span className="robot-label">
-                                    <strong style={{ fontSize: "13px", fontWeight: "500" }}>I agree to the Terms & Conditions</strong>
-                                </span>
-                            </label>
-                            {errors.terms && <span className="error-text">{errors.terms}</span>}
-                        </div>
+                     <div className="form-group">
+    <label
+        className="robot-check"
+        style={{
+            padding: "10px 14px",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            gap: "8px",
+            cursor: "pointer",
+        }}
+    >
+        {/* Checkbox + custom checkmark (LEFT) */}
+        <span style={{ position: "relative", display: "inline-block", width: "18px", height: "18px", flexShrink: 0 }}>
+            <input
+                type="checkbox"
+                name="terms"
+                checked={formData.terms}
+                onChange={handleChange}
+                style={{
+                    position: "absolute",
+                    opacity: 0,
+                    width: "18px",
+                    height: "18px",
+                    margin: 0,
+                    cursor: "pointer",
+                    zIndex: 2,
+                }}
+            />
+            <span
+                className="checkmark"
+                style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "18px",
+                    height: "18px",
+                    border: "1.5px solid #999",
+                    borderRadius: "3px",
+                    background: formData.terms ? "#4a90e2" : "#fff",
+                    display: "inline-block",
+                }}
+            ></span>
+        </span>
+
+        {/* Text (RIGHT) */}
+        <span className="robot-label">
+            <strong style={{ fontSize: "13px", fontWeight: "500" }}>
+                I agree to the Terms & Conditions
+            </strong>
+        </span>
+    </label>
+
+    {errors.terms && <span className="error-text">{errors.terms}</span>}
+</div>
 
                         <button type="submit" className="btn-signin">
                             Create Account
