@@ -1,0 +1,22 @@
+/* --- SIGNUP FORM GRID ROWS --- */
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-row .form-group {
+  flex: 1; /* Makes both fields take equal 50% width */
+}
+
+/* Make checkbox text a bit lighter */
+.robot-check input:checked ~ .checkmark {
+  background: #00a896;
+  border-color: #00a896;
+}
+
+@media (max-width: 500px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}
