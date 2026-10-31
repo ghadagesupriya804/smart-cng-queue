@@ -6,7 +6,7 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import ForgotPassword from "./Pages/ForgotPassword";
 import Header from "./Pages/Header"; 
-
+import AdminLogin from "./Pages/AdminLogin";
 function App() {
   return (
     <>
@@ -22,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
       </Routes>
     </>
   );

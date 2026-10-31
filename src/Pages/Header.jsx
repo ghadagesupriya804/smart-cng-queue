@@ -1,4 +1,4 @@
-// Header.jsx
+
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../Styles/Header.css";
@@ -64,10 +64,10 @@ const Header = () => {
           </ul>
 
           <ul className="auth-list">
-            
+
             {/* --- NEW ATTRACTIVE LOGIN DROPDOWN --- */}
             <li className="login-dropdown-container" ref={dropdownRef}>
-              <button 
+              <button
                 className={`login-btn ${showLoginMenu ? "active" : ""}`}
                 onClick={() => setShowLoginMenu(!showLoginMenu)}
               >
@@ -76,11 +76,11 @@ const Header = () => {
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
               </button>
-              
+
               {/* Dropdown Menu */}
               <div className={`login-dropdown-menu ${showLoginMenu ? "show" : ""}`}>
-                <Link 
-                  to="/login" 
+                <Link
+                  to="/login"
                   className="dropdown-card"
                   onClick={() => { setIsMenuOpen(false); setShowLoginMenu(false); }}
                 >
@@ -91,11 +91,8 @@ const Header = () => {
                   </div>
                 </Link>
 
-                <Link 
-                  to="/admin" 
-                  className="dropdown-card"
-                  onClick={() => { setIsMenuOpen(false); setShowLoginMenu(false); }}
-                >
+
+                <Link to="/admin-login" className="dropdown-card">
                   <div className="icon-wrapper admin-icon">🛡️</div>
                   <div className="text-wrapper">
                     <strong>Admin Login</strong>
