@@ -1,4 +1,6 @@
 /* Header.css */
+
+/* --- GLOBAL HEADER --- */
 .header {
   position: sticky;
   top: 0;
@@ -17,7 +19,7 @@
   height: 70px;
 }
 
-/* Logo */
+/* --- LOGO --- */
 .logo {
   display: flex;
   align-items: center;
@@ -32,7 +34,7 @@
   font-size: 1.6rem;
 }
 
-/* Navigation */
+/* --- NAVIGATION --- */
 .nav {
   display: flex;
   align-items: center;
@@ -63,7 +65,7 @@
   color: #0b7a3e;
 }
 
-/* Auth Links */
+/* --- AUTH LINKS (Signup) --- */
 .auth-link {
   text-decoration: none;
   color: #333;
@@ -90,7 +92,128 @@
   color: #fff;
 }
 
-/* Hamburger */
+/* --- ATTRACTIVE LOGIN DROPDOWN --- */
+.login-dropdown-container {
+  position: relative;
+}
+
+.login-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #333;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.login-btn:hover, 
+.login-btn.active {
+  color: #0b7a3e;
+  background: #f1f8f4;
+}
+
+.chevron {
+  transition: transform 0.3s ease;
+}
+
+.chevron.rotate {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu Box */
+.login-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 260px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  border: 1px solid #eee;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  
+  /* Hidden State */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+  z-index: 100;
+}
+
+.login-dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Dropdown Cards */
+.dropdown-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.dropdown-card:hover {
+  background: #f8fbf9;
+}
+
+.icon-wrapper {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.user-icon {
+  background: #e8f5e9;
+  color: #0b7a3e;
+}
+
+.admin-icon {
+  background: #fde8e8;
+  color: #e63946;
+}
+
+.text-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-wrapper strong {
+  color: #111;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.text-wrapper span {
+  color: #666;
+  font-size: 12px;
+}
+
+.dropdown-card:hover .text-wrapper strong {
+  color: #0b7a3e;
+}
+
+/* --- HAMBURGER (MOBILE) --- */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -120,7 +243,7 @@
   transform: translateY(-8px) rotate(-45deg);
 }
 
-/* Responsive */
+/* --- RESPONSIVE --- */
 @media (max-width: 900px) {
   .hamburger {
     display: flex;
@@ -164,11 +287,30 @@
   }
 
   .nav-list a,
-  .auth-link {
+  .auth-link,
+  .login-btn {
     display: block;
+    width: 100%;
+    text-align: left;
     padding: 12px 8px;
   }
 
+  .login-dropdown-menu {
+    position: static;
+    box-shadow: none;
+    border: none;
+    padding: 0 0 0 16px;
+    width: 100%;
+    display: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .login-dropdown-menu.show {
+    display: flex;
+  }
+  
   .auth-link.btn-primary {
     text-align: center;
     margin-top: 6px;

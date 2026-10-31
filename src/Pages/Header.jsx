@@ -1,23 +1,30 @@
 // Header.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../Styles/Header.css";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showLoginMenu, setShowLoginMenu] = useState(false);
   const location = useLocation();
+  const dropdownRef = useRef();
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowLoginMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "About Us", path: "/about" },
     { name: "Find CNG Stations", path: "/find-stations" },
     { name: "Contact Us", path: "/contact" },
-  ];
-
-  const authLinks = [
-    { name: "Login", path: "/login" },
-    { name: "Signup", path: "/signup" },
-    // { name: "Forgot Password", path: "/forgot-password" },
   ];
 
   return (
@@ -57,19 +64,57 @@ const Header = () => {
           </ul>
 
           <ul className="auth-list">
-            {authLinks.map((link) => (
-              <li key={link.path}>
-                <Link
-                  to={link.path}
-                  className={`auth-link ${
-                    location.pathname === link.path ? "active" : ""
-                  } ${link.name === "Signup" ? "btn-primary" : ""}`}
-                  onClick={() => setIsMenuOpen(false)}
+            
+            {/* --- NEW ATTRACTIVE LOGIN DROPDOWN --- */}
+            <li className="login-dropdown-container" ref={dropdownRef}>
+              <button 
+                className={`login-btn ${showLoginMenu ? "active" : ""}`}
+                onClick={() => setShowLoginMenu(!showLoginMenu)}
+              >
+                <span>Login</span>
+                <svg className={`chevron ${showLoginMenu ? "rotate" : ""}`} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+              
+              {/* Dropdown Menu */}
+              <div className={`login-dropdown-menu ${showLoginMenu ? "show" : ""}`}>
+                <Link 
+                  to="/login" 
+                  className="dropdown-card"
+                  onClick={() => { setIsMenuOpen(false); setShowLoginMenu(false); }}
                 >
-                  {link.name}
+                  <div className="icon-wrapper user-icon">👤</div>
+                  <div className="text-wrapper">
+                    <strong>User Login</strong>
+                    <span>Access your dashboard</span>
+                  </div>
                 </Link>
-              </li>
-            ))}
+
+                <Link 
+                  to="/admin" 
+                  className="dropdown-card"
+                  onClick={() => { setIsMenuOpen(false); setShowLoginMenu(false); }}
+                >
+                  <div className="icon-wrapper admin-icon">🛡️</div>
+                  <div className="text-wrapper">
+                    <strong>Admin Login</strong>
+                    <span>Manage CNG stations</span>
+                  </div>
+                </Link>
+              </div>
+            </li>
+            {/* --- END LOGIN DROPDOWN --- */}
+
+            <li>
+              <Link
+                to="/signup"
+                className="btn-primary"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Signup
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>
