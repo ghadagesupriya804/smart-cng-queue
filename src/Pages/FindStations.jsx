@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -9,23 +9,20 @@ import {
 } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import "../Styles/FindStations.css";
+// FIXED IMPORT PATH based on your screenshot
+import "../Styles/FindStations.css"; 
 
 // Fix default marker icon paths broken by webpack/vite
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl:
-    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+  iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
   shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
 
-// Custom colored icons
 const greenIcon = new L.Icon({
-  iconUrl:
-    "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png",
-  shadowUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+  iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png",
+  shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
@@ -33,10 +30,8 @@ const greenIcon = new L.Icon({
 });
 
 const redIcon = new L.Icon({
-  iconUrl:
-    "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
-  shadowUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+  iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
+  shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
@@ -44,10 +39,8 @@ const redIcon = new L.Icon({
 });
 
 const orangeIcon = new L.Icon({
-  iconUrl:
-    "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png",
-  shadowUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+  iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png",
+  shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
@@ -61,7 +54,6 @@ const userIcon = new L.DivIcon({
   iconAnchor: [10, 10],
 });
 
-// Mock data — replace with API call
 const MOCK_STATIONS = [
   {
     id: 1,
@@ -121,7 +113,6 @@ const MOCK_STATIONS = [
   },
 ];
 
-// Haversine distance in km
 function getDistanceKm(lat1, lon1, lat2, lon2) {
   const R = 6371;
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
@@ -134,7 +125,6 @@ function getDistanceKm(lat1, lon1, lat2, lon2) {
   return (R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))).toFixed(2);
 }
 
-// Recenter map when location changes
 function RecenterMap({ center }) {
   const map = useMap();
   useEffect(() => {
@@ -148,7 +138,7 @@ const FindStations = () => {
   const [locationError, setLocationError] = useState("");
   const [stations, setStations] = useState(MOCK_STATIONS);
   const [selectedStation, setSelectedStation] = useState(null);
-  const [view, setView] = useState("map"); // 'map' | 'list'
+  const [view, setView] = useState("map"); 
   const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState({
     openOnly: false,
@@ -163,7 +153,6 @@ const FindStations = () => {
     }
   });
 
-  // Get user location
   useEffect(() => {
     if (!navigator.geolocation) {
       setLocationError("Geolocation not supported");
@@ -181,7 +170,6 @@ const FindStations = () => {
     );
   }, []);
 
-  // Persist favorites
   useEffect(() => {
     localStorage.setItem("cng_favs", JSON.stringify(favorites));
   }, [favorites]);
@@ -192,7 +180,6 @@ const FindStations = () => {
     );
   };
 
-  // Filter + sort stations
   const filteredStations = useMemo(() => {
     return stations
       .filter((s) => {
@@ -225,12 +212,9 @@ const FindStations = () => {
   };
 
   const handleReportStatus = (id) => {
-    // Hook to your backend API
     alert(`Thanks! Status report submitted for station #${id}`);
     setStations((prev) =>
-      prev.map((s) =>
-        s.id === id ? { ...s, lastUpdated: "just now" } : s
-      )
+      prev.map((s) => (s.id === id ? { ...s, lastUpdated: "just now" } : s))
     );
   };
 
@@ -255,69 +239,71 @@ const FindStations = () => {
 
   return (
     <div className="find-stations-page">
-      {/* HEADER / SEARCH */}
-      <header className="fs-header">
-        <h1>Find CNG Stations</h1>
-        <div className="fs-search-bar">
-          <span className="search-icon">🔍</span>
-          <input
-            type="text"
-            placeholder="Search by name or area..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
+      {/* FLOATING HEADER / SEARCH */}
+      <div className="fs-floating-ui">
+        <header className="fs-header">
+          <div className="fs-header-top">
+            <h1>Find CNG Stations</h1>
+            <div className="fs-view-toggle">
+              <button
+                className={view === "map" ? "active" : ""}
+                onClick={() => setView("map")}
+              >
+                Map
+              </button>
+              <button
+                className={view === "list" ? "active" : ""}
+                onClick={() => setView("list")}
+              >
+                List
+              </button>
+            </div>
+          </div>
 
-        {/* FILTERS */}
-        <div className="fs-filters">
-          <label className={filters.openOnly ? "chip active" : "chip"}>
+          <div className="fs-search-bar">
+            <span className="search-icon">🔍</span>
             <input
-              type="checkbox"
-              checked={filters.openOnly}
-              onChange={(e) =>
-                setFilters({ ...filters, openOnly: e.target.checked })
-              }
+              type="text"
+              placeholder="Search by name or area..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
-            Open Now
-          </label>
-          <label className={filters.cngOnly ? "chip active" : "chip"}>
-            <input
-              type="checkbox"
-              checked={filters.cngOnly}
-              onChange={(e) =>
-                setFilters({ ...filters, cngOnly: e.target.checked })
-              }
-            />
-            CNG Only
-          </label>
-          <label className={filters.availableOnly ? "chip active" : "chip"}>
-            <input
-              type="checkbox"
-              checked={filters.availableOnly}
-              onChange={(e) =>
-                setFilters({ ...filters, availableOnly: e.target.checked })
-              }
-            />
-            Fuel Available
-          </label>
-        </div>
+          </div>
 
-        {/* VIEW TOGGLE */}
-        <div className="fs-view-toggle">
-          <button
-            className={view === "map" ? "active" : ""}
-            onClick={() => setView("map")}
-          >
-            🗺 Map
-          </button>
-          <button
-            className={view === "list" ? "active" : ""}
-            onClick={() => setView("list")}
-          >
-            ☰ List
-          </button>
-        </div>
-      </header>
+          <div className="fs-filters">
+            <label className={filters.openOnly ? "chip active" : "chip"}>
+              <input
+                type="checkbox"
+                checked={filters.openOnly}
+                onChange={(e) =>
+                  setFilters({ ...filters, openOnly: e.target.checked })
+                }
+              />
+              Open Now
+            </label>
+            <label className={filters.cngOnly ? "chip active" : "chip"}>
+              <input
+                type="checkbox"
+                checked={filters.cngOnly}
+                onChange={(e) =>
+                  setFilters({ ...filters, cngOnly: e.target.checked })
+                }
+              />
+              CNG Only
+            </label>
+            <label className={filters.availableOnly ? "chip active" : "chip"}>
+              <input
+                type="checkbox"
+                checked={filters.availableOnly}
+                onChange={(e) =>
+                  setFilters({ ...filters, availableOnly: e.target.checked })
+                }
+              />
+              Fuel Available
+            </label>
+          </div>
+        </header>
+      </div>
 
       {locationError && (
         <div className="fs-error">⚠ Location error: {locationError}</div>
@@ -332,6 +318,7 @@ const FindStations = () => {
               center={mapCenter}
               zoom={13}
               style={{ height: "100%", width: "100%" }}
+              zoomControl={false}
             >
               <TileLayer
                 attribution='&copy; <a href="https://osm.org/">OpenStreetMap</a>'
@@ -487,10 +474,10 @@ const StationCard = ({
 
     <div className="card-actions">
       <button className="btn-primary" onClick={onNavigate}>
-        🧭 Navigate
+        Navigate
       </button>
       <button className="btn-secondary" onClick={onReport}>
-        ⚠ Report
+        Report Status
       </button>
     </div>
   </div>
