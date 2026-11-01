@@ -1,0 +1,355 @@
+/* --- GLOBAL PAGE STYLES --- */
+.live-queue-page {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  color: #1a1a1a;
+}
+
+.queue-header {
+  margin-bottom: 30px;
+}
+
+.queue-header h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #0f2a3a;
+  margin-bottom: 8px;
+}
+
+.queue-header p {
+  color: #6b7c93;
+  font-size: 16px;
+}
+
+/* --- MAIN GRID --- */
+.queue-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 30px;
+}
+
+/* --- LEFT: STATION INFO & QUEUE VISUALIZER --- */
+.queue-main-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid #f0f4f8;
+}
+
+.station-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #eef2f5;
+  padding-bottom: 20px;
+  margin-bottom: 40px;
+}
+
+.station-title-row h2 {
+  font-size: 24px;
+  color: #0f2a3a;
+  margin-bottom: 5px;
+}
+
+.station-title-row p {
+  color: #6b7c93;
+  font-size: 14px;
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.status-badge.open {
+  background: #e8f5e9;
+  color: #00a896;
+}
+
+/* Circular Queue Visualizer */
+.queue-visualizer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 40px;
+}
+
+.queue-circle-wrapper {
+  position: relative;
+  width: 220px;
+  height: 220px;
+}
+
+.queue-circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Smooth rotation for the gradient */
+  transition: 1s ease-in-out;
+}
+
+.queue-inner-circle {
+  width: 180px;
+  height: 180px;
+  background: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.queue-inner-circle h2 {
+  font-size: 48px;
+  font-weight: 800;
+  color: #0f2a3a;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+
+.queue-inner-circle span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7c93;
+  text-transform: uppercase;
+}
+
+.queue-stats-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #6b7c93;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f2a3a;
+}
+
+.stat-value.highlight {
+  color: #e63946; /* Red for urgent wait time */
+}
+
+.text-muted {
+  color: #8899a6 !important;
+  font-size: 15px;
+}
+
+/* --- RIGHT: BOOKING CARD --- */
+.queue-side-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  border-top: 5px solid #00a896;
+  height: fit-content;
+}
+
+.join-queue-view h3 {
+  font-size: 22px;
+  color: #0f2a3a;
+  margin-bottom: 10px;
+}
+
+.join-queue-view > p {
+  font-size: 14px;
+  color: #6b7c93;
+  line-height: 1.5;
+  margin-bottom: 25px;
+}
+
+.join-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334e5c;
+  margin-bottom: 6px;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1.5px solid #dbe3eb;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  background: #fafbfc;
+  transition: 0.2s;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  border-color: #00a896;
+  background: #fff;
+}
+
+.btn-join-queue {
+  width: 100%;
+  padding: 15px;
+  background: #00a896;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-join-queue:hover {
+  background: #008f7f;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 168, 150, 0.3);
+}
+
+.btn-join-queue:disabled {
+  background: #a0b2c0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.join-note {
+  font-size: 12px;
+  color: #8899a6;
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* --- TOKEN SUCCESS VIEW --- */
+.token-success-view {
+  text-align: center;
+  animation: fadeIn 0.4s ease;
+}
+
+.success-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.token-success-view h2 {
+  color: #00a896;
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+.token-success-view p {
+  color: #6b7c93;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+.digital-token {
+  border: 2px dashed #00a896;
+  border-radius: 12px;
+  padding: 20px;
+  background: #f0f7f6;
+  margin-bottom: 20px;
+}
+
+.token-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #6b7c93;
+  font-weight: 600;
+}
+
+.token-number {
+  font-size: 42px;
+  font-weight: 800;
+  color: #0f2a3a;
+  margin: 10px 0;
+  letter-spacing: 2px;
+}
+
+.token-details {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  border-top: 1px solid #dce8e6;
+  padding-top: 15px;
+}
+
+.token-details div {
+  display: flex;
+  flex-direction: column;
+}
+
+.token-details strong {
+  font-size: 18px;
+  color: #0f2a3a;
+}
+
+.token-details span {
+  font-size: 12px;
+  color: #6b7c93;
+}
+
+.btn-cancel-token {
+  background: transparent;
+  color: #e63946;
+  border: 1px solid #e63946;
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-cancel-token:hover {
+  background: #e63946;
+  color: #fff;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 900px) {
+  .queue-grid {
+    grid-template-columns: 1fr; /* Stacks vertically on tablets/phones */
+  }
+  
+  .queue-visualizer {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .queue-stats-text {
+    width: 100%;
+    text-align: left;
+  }
+}
