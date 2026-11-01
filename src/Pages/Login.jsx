@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // 👈 Added useNavigate
 import "../Styles/Login.css";
 
 const Login = () => {
+  const navigate = useNavigate(); // 👈 Initialize the navigation hook
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -72,8 +74,9 @@ const Login = () => {
       return;
     }
 
-    // Demo only. Real authentication requires a backend API.
-    alert("Login form validated successfully! (Demo)");
+    // 👈 NEW CODE: Save the token and redirect to the dashboard
+    localStorage.setItem("token", "my-real-user-token");
+    navigate("/find-stations");
   };
 
   return (
@@ -92,49 +95,11 @@ const Login = () => {
                 role="img"
                 aria-label="Smart CNG fuel pump logo"
               >
-                {/* Fuel Pump Body */}
-                <rect
-                  x="15"
-                  y="20"
-                  width="55"
-                  height="70"
-                  rx="8"
-                  fill="#E63946"
-                />
-
-                {/* Display Screen */}
-                <rect
-                  x="25"
-                  y="35"
-                  width="35"
-                  height="20"
-                  rx="3"
-                  fill="#FFFFFF"
-                />
-
-                {/* Eco Leaf */}
-                <path
-                  d="M42 72 C42 60, 52 50, 65 55 C65 68, 52 78, 42 72 Z"
-                  fill="#00A896"
-                />
-
-                {/* Fuel Hose */}
-                <path
-                  d="M70 35 L80 35 L80 60 C80 70 75 80 65 80"
-                  stroke="#E0E1DD"
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                  fill="none"
-                />
-
-                <rect
-                  x="75"
-                  y="25"
-                  width="10"
-                  height="15"
-                  rx="2"
-                  fill="#E0E1DD"
-                />
+                <rect x="15" y="20" width="55" height="70" rx="8" fill="#E63946" />
+                <rect x="25" y="35" width="35" height="20" rx="3" fill="#FFFFFF" />
+                <path d="M42 72 C42 60, 52 50, 65 55 C65 68, 52 78, 42 72 Z" fill="#00A896" />
+                <path d="M70 35 L80 35 L80 60 C80 70 75 80 65 80" stroke="#E0E1DD" strokeWidth="6" strokeLinecap="round" fill="none" />
+                <rect x="75" y="25" width="10" height="15" rx="2" fill="#E0E1DD" />
               </svg>
             </div>
 
@@ -262,7 +227,6 @@ const Login = () => {
 
             {/* FORGOT PASSWORD */}
             <div className="forgot-row">
-              {/* ✅ Lowercase path fixed */}
               <Link to="/forgot-password">Forgot password?</Link>
             </div>
 
@@ -273,7 +237,6 @@ const Login = () => {
 
             <p className="signup-text">
               Don't have an account?{" "}
-              {/* ✅ Lowercase path fixed */}
               <Link to="/signup">Sign up</Link>
             </p>
           </form>

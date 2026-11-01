@@ -1,0 +1,83 @@
+/* --- ADD THESE TO THE BOTTOM OF YOUR EXISTING HEADER.CSS --- */
+
+/* User Button & Avatar */
+.user-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  background: #0b7a3e;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* User Dropdown Specifics */
+.user-menu {
+  width: 240px;
+  padding: 12px 8px;
+}
+
+.menu-header {
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-header strong {
+  color: #111;
+  font-size: 15px;
+}
+
+.menu-header span {
+  color: #666;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.user-menu hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 8px 0;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.dropdown-item:hover {
+  background: #f1f8f4;
+  color: #0b7a3e;
+}
+
+.logout-btn {
+  color: #e63946;
+}
+
+.logout-btn:hover {
+  background: #fde8e8;
+  color: #d32f2f;
+}
