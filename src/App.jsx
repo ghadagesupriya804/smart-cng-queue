@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home"; 
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
+import FindStations from "./Pages/FindStations";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import ForgotPassword from "./Pages/ForgotPassword";
@@ -18,6 +19,7 @@ function App() {
         
         {/* Fixed the typo here: Routep -> Route */}
         <Route path="/contact" element={<Contact />} />
+        <Route path="/find-stations" element={<FindStations />} />
         
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
