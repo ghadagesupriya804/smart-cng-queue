@@ -5,6 +5,7 @@ const HelpSupport = () => {
   // State for FAQ Accordion
   const [openFaq, setOpenFaq] = useState(null);
 
+  // ✅ Only 8 questions (to keep the design balanced)
   const faqs = [
     {
       question: "How do I cancel my booking?",
@@ -21,6 +22,22 @@ const HelpSupport = () => {
     {
       question: "Can I book a slot for multiple vehicles?",
       answer: "Currently, one booking covers one vehicle. If you have multiple vehicles, you can add them to your profile and book separate slots for each."
+    },
+    {
+      question: "Is online payment available?",
+      answer: "No, currently we only facilitate queue booking. You will need to pay for the CNG fuel directly at the station after your turn."
+    },
+    {
+      question: "How accurate is the Live Queue status?",
+      answer: "Our live queue status is updated by station operators and verified by user reports. While we strive for 100% accuracy, actual wait times may vary slightly due to unexpected delays."
+    },
+    {
+      question: "What if the station runs out of gas?",
+      answer: "If a station runs out of CNG, the status will immediately change to 'Out of Gas' on the app. Your booking will be automatically refunded or rescheduled."
+    },
+    {
+      question: "Can I pre-book a slot for tomorrow?",
+      answer: "Yes, you can book a slot up to 24 hours in advance. However, tokens are generated on a first-come, first-serve basis."
     }
   ];
 
