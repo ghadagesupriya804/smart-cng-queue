@@ -39,8 +39,25 @@ const BookSlot = () => {
     // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
+      
+      // Generate new token and booking ID
+      const generatedToken = `TKN-${Math.floor(10 + Math.random() * 90)}`;
+      const newBookingId = `BKG-${Math.floor(1000 + Math.random() * 9000)}`;
+      
+      // Create final booking object to send to the next page
+      const finalBookingData = {
+        ...bookingData,
+        token: generatedToken,
+        id: newBookingId,
+        amount: bookingData.fuelType === "Full Tank" ? "₹ 500" : bookingData.fuelType,
+        status: "Active"
+      };
+
       alert("Slot Booked Successfully! Token Generated.");
-      navigate("/booking-confirmation"); // Redirect after success
+      
+      // Navigate to confirmation page and pass the data
+      navigate("/booking-confirmation", { state: { booking: finalBookingData } });
+      
     }, 1500);
   };
 

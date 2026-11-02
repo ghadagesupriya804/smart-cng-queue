@@ -18,6 +18,7 @@ import LiveQueue from "./User/Pages/LiveQueue";
 import MyBookings from "./User/Pages/MyBookings";
 import BookSlot from "./User/Pages/BookSlot";
 import BookingDetails from "./User/Pages/BookingDetails";
+import BookingConfirmation from "./User/Pages/BookingConfirmation";
 // Public Layout
 const PublicLayout = () => (
   <>
@@ -65,6 +66,7 @@ function App() {
          <Route path="/my-bookings" element={<MyBookings />} />
          <Route path="/book-slot" element={<BookSlot />} />
          <Route path="/booking-details" element={<BookingDetails />} />
+         <Route path="/booking-confirmation" element={<BookingConfirmation />} />
       </Route>
 
     </Routes>

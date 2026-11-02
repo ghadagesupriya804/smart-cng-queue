@@ -1,33 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom"; // Import useLocation
 import "./Styles/BookingDetails.css";
 
 const BookingDetails = () => {
-  // In a real app, you would fetch the booking data using the ID from the URL
-  // const { id } = useParams();
-  
-  // Dummy Data for the selected booking
-  const [booking] = useState({
-    id: "BKG-8923",
-    station: "HP CNG Station - Andheri",
-    address: "Western Express Hwy, Andheri West, Mumbai",
-    date: "02 Nov 2026",
-    time: "10:30 AM",
-    vehicle: "MH 02 AB 1234",
+  const location = useLocation();
+
+  // Get the booking data passed from previous pages
+  const booking = location.state?.booking || {
+    id: "BKG-0000",
+    station: "Demo Station",
+    address: "Demo Address",
+    date: "Today",
+    time: "10:00 AM",
+    vehicle: "MH 00 XX 0000",
     fuelType: "Full Tank",
-    amount: "₹ 450",
-    status: "Active", // Active, Completed, Cancelled
-    token: "TKN-45",
-    bookedOn: "01 Nov 2026, 04:30 PM",
-    operator: "Ramesh Kumar",
-    phone: "+91 98765 43210"
-  });
+    amount: "₹ 0",
+    status: "Active",
+    token: "TKN-00",
+    bookedOn: "Today",
+    operator: "Station Operator",
+    phone: "+91 00000 00000"
+  };
 
   // Timeline steps
   const timeline = [
-    { title: "Booking Confirmed", time: "01 Nov, 04:30 PM", status: "completed" },
-    { title: "Queue Started", time: "02 Nov, 10:15 AM", status: "completed" },
-    { title: "Your Turn", time: "Est. 10:30 AM", status: "active" },
+    { title: "Booking Confirmed", time: "Just now", status: "completed" },
+    { title: "Queue Started", time: "Pending", status: "pending" },
+    { title: "Your Turn", time: "Est. " + booking.time, status: "pending" },
     { title: "Fuel Dispensed", time: "Pending", status: "pending" },
   ];
 
@@ -115,7 +114,6 @@ const BookingDetails = () => {
             {/* Ticket Footer */}
             <div className="ticket-footer">
               <div className="barcode">
-                {/* Simulated Barcode */}
                 <div className="barcode-line"></div>
                 <div className="barcode-line"></div>
                 <div className="barcode-line"></div>
@@ -166,7 +164,7 @@ const BookingDetails = () => {
             <h3>Payment Summary</h3>
             <div className="payment-row">
               <span>Fuel Amount ({booking.fuelType})</span>
-              <span>₹ 450.00</span>
+              <span>{booking.amount}</span>
             </div>
             <div className="payment-row">
               <span>Convenience Fee</span>
