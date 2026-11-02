@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../Styles/LiveQueue.css";
+import "./Styles/LiveQueue.css";
 
 const LiveQueue = () => {
   // Dummy data for the selected station

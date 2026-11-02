@@ -14,7 +14,7 @@ import PublicHeader from "./Pages/Header";
 // User Pages
 import UserHeader from "./User/Pages/Header";
 import FindStations from "./User/Pages/FindStations";
-
+import LiveQueue from "./User/Pages/LiveQueue";
 // Public Layout
 const PublicLayout = () => (
   <>
@@ -58,6 +58,7 @@ function App() {
       <Route element={<RequireUser />}>
         <Route path="/dashboard" element={<div>Welcome to User Dashboard</div>} />
         <Route path="/find-stations" element={<FindStations />} />
+         <Route path="/live-queue" element={<LiveQueue />} /> 
       </Route>
 
     </Routes>
