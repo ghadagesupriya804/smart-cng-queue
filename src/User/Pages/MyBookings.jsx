@@ -1,165 +1,198 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { 
-  MapPin, Clock, Phone, Star, CheckCircle2, XCircle, 
-  Navigation, Share2, Heart, Fuel, Store, Bath, Coffee, ArrowLeft 
+  Calendar, Clock, MapPin, Fuel, 
+  XCircle, CheckCircle2, History, Navigation, AlertCircle 
 } from 'lucide-react';
-// REMOVED: import Header from './Header'; 
-import './Styles/StationDetails.css'; 
+import './Styles/MyBookings.css';
 
-const StationDetails = () => {
-  const station = {
-    id: 1,
-    name: "Highway CNG Fuels",
-    address: "Hebbal, Outer Ring Road, Bengaluru, Karnataka 560024",
-    status: "Out Of Gas", 
-    rating: 4.2,
-    reviews: 128,
-    timings: "5:00 AM – 12:00 AM",
-    phone: "+91 98765 33333",
-    lastUpdated: "10 min ago",
-    amenities: ["Store", "Washroom", "Air Pressure", "Drinking Water"],
-    coordinates: { lat: 13.0358, lng: 77.5970 }
+const MyBookings = () => {
+  const [activeTab, setActiveTab] = useState('upcoming');
+
+  // --- MOCK DATA ---
+  const [bookings, setBookings] = useState([
+    {
+      id: "BK-8921",
+      stationName: "City Gas Station",
+      stationId: 2,
+      address: "Koramangala, Bangalore",
+      date: "02 Nov 2026",
+      time: "10:30 AM",
+      fuelType: "CNG",
+      amount: "₹ 450",
+      status: "upcoming" // upcoming, completed, cancelled
+    },
+    {
+      id: "BK-8922",
+      stationName: "Highway CNG Fuels",
+      stationId: 4,
+      address: "Hebbal, Bangalore",
+      date: "05 Nov 2026",
+      time: "02:00 PM",
+      fuelType: "CNG",
+      amount: "₹ 600",
+      status: "upcoming"
+    },
+    {
+      id: "BK-8110",
+      stationName: "Green Fuel CNG Station",
+      stationId: 1,
+      address: "MG Road, Bangalore",
+      date: "28 Oct 2026",
+      time: "09:00 AM",
+      fuelType: "CNG",
+      amount: "₹ 500",
+      status: "completed"
+    },
+    {
+      id: "BK-7500",
+      stationName: "Metro CNG Pump",
+      stationId: 3,
+      address: "Indiranagar, Bangalore",
+      date: "15 Oct 2026",
+      time: "04:30 PM",
+      fuelType: "CNG",
+      amount: "₹ 300",
+      status: "cancelled"
+    }
+  ]);
+
+  // --- FUNCTIONALITY: Cancel Booking ---
+  const handleCancel = (id) => {
+    if (window.confirm("Are you sure you want to cancel this booking?")) {
+      setBookings(prev => 
+        prev.map(b => b.id === id ? { ...b, status: "cancelled" } : b)
+      );
+      // Switch to cancelled tab so the user sees the result
+      setActiveTab('cancelled'); 
+    }
   };
 
-  const isAvailable = station.status === "Available";
+  // Filter bookings based on active tab
+  const filteredBookings = bookings.filter(b => b.status === activeTab);
+
+  // Helper for Status Badges
+  const getStatusBadge = (status) => {
+    switch(status) {
+      case 'upcoming': 
+        return <span className="status-badge status-upcoming"><Clock size={14}/> Upcoming</span>;
+      case 'completed': 
+        return <span className="status-badge status-completed"><CheckCircle2 size={14}/> Completed</span>;
+      case 'cancelled': 
+        return <span className="status-badge status-cancelled"><XCircle size={14}/> Cancelled</span>;
+      default: return null;
+    }
+  };
 
   return (
-    // We use the container class from your CSS
-    <div className="station-details-container">
-      
-      {/* REMOVED: <Header /> */}
-
-      <main className="details-main-content">
+    <div className="my-bookings-page">
+      <main className="my-bookings-container">
         
-        {/* Back Button */}
-        <button className="back-btn" onClick={() => window.history.back()}>
-          <ArrowLeft className="back-icon" />
-          Back to Find Stations
-        </button>
-
-        {/* Header Section */}
-        <div className="details-header">
+        <div className="bookings-header">
           <div>
-            <div className="header-title-row">
-              <h1 className="station-name">{station.name}</h1>
-              
-              <span className={`status-badge ${isAvailable ? 'available' : 'out-of-gas'}`}>
-                {isAvailable ? <CheckCircle2 className="status-icon" /> : <XCircle className="status-icon" />}
-                {station.status}
-              </span>
-            </div>
-            
-            <div className="address-row">
-              <MapPin size={18} />
-              <p>{station.address}</p>
-            </div>
-
-            <div className="rating-row">
-              <Star size={16} fill="currentColor" />
-              {station.rating} <span className="review-count">({station.reviews} reviews)</span>
-            </div>
+            <h1 className="page-title">My Bookings</h1>
+            <p className="page-subtitle">Manage your upcoming slots and view history.</p>
           </div>
-
-          <div className="header-actions">
-            <button className="icon-btn"><Heart size={20} /></button>
-            <button className="icon-btn"><Share2 size={20} /></button>
-            <a 
-              href={`https://www.google.com/maps/dir/?api=1&destination=${station.coordinates.lat},${station.coordinates.lng}`} 
-              target="_blank" 
-              rel="noreferrer" 
-              className="btn-navigate"
-              style={{ textDecoration: 'none' }}
-            >
-              <Navigation size={18} />
-              Navigate
-            </a>
-          </div>
+          <Link to="/book-slot" className="btn-primary-green">
+            <Calendar size={18} />
+            Book New Slot
+          </Link>
         </div>
 
-        {/* Main Grid Layout */}
-        <div className="details-grid">
-          
-          {/* Left Column - Info */}
-          <div>
-            <div className="info-cards-row">
-              <div className="detail-card">
-                <div className="card-icon-wrapper green">
-                  <Clock size={24} />
-                </div>
-                <div className="card-content">
-                  <h4>Operating Hours</h4>
-                  <p>{station.timings}</p>
-                </div>
-              </div>
+        {/* Tabs */}
+        <div className="bookings-tabs">
+          <button 
+            className={`tab-btn ${activeTab === 'upcoming' ? 'active' : ''}`}
+            onClick={() => setActiveTab('upcoming')}
+          >
+            Upcoming ({bookings.filter(b => b.status === 'upcoming').length})
+          </button>
+          <button 
+            className={`tab-btn ${activeTab === 'completed' ? 'active' : ''}`}
+            onClick={() => setActiveTab('completed')}
+          >
+            History
+          </button>
+          <button 
+            className={`tab-btn ${activeTab === 'cancelled' ? 'active' : ''}`}
+            onClick={() => setActiveTab('cancelled')}
+          >
+            Cancelled
+          </button>
+        </div>
 
-              <div className="detail-card">
-                <div className="card-icon-wrapper blue">
-                  <Phone size={24} />
-                </div>
-                <div className="card-content">
-                  <h4>Contact</h4>
-                  <p>{station.phone}</p>
-                </div>
-              </div>
+        {/* Bookings List */}
+        <div className="bookings-list">
+          {filteredBookings.length === 0 ? (
+            <div className="empty-state">
+              <History size={48} color="#cbd5e1" />
+              <h3>No {activeTab} bookings found</h3>
+              <p>When you book a slot, it will appear here.</p>
             </div>
-
-            <div className="section-card">
-              <h2 className="section-title">
-                <Fuel size={20} color="#059669" />
-                Live Fuel Status
-              </h2>
-              <div className="fuel-status-box">
-                <div className="fuel-info">
-                  <h5>CNG (Compressed Natural Gas)</h5>
-                  <p>Updated: {station.lastUpdated}</p>
-                </div>
-                <span className={`status-badge ${isAvailable ? 'available' : 'out-of-gas'}`}>
-                  {station.status}
-                </span>
-              </div>
-            </div>
-
-            <div className="section-card">
-              <h2 className="section-title">Amenities</h2>
-              <div className="amenities-list">
-                {station.amenities.map((amenity, index) => (
-                  <div key={index} className="amenity-tag">
-                    {amenity === "Store" && <Store size={16} />}
-                    {amenity === "Washroom" && <Bath size={16} />}
-                    {amenity === "Air Pressure" && <Navigation size={16} />}
-                    {amenity === "Drinking Water" && <Coffee size={16} />}
-                    {amenity}
+          ) : (
+            filteredBookings.map((booking) => (
+              <div key={booking.id} className="booking-card">
+                
+                {/* Left Side: Details */}
+                <div className="booking-details">
+                  <div className="booking-top">
+                    <h3>{booking.stationName}</h3>
+                    {getStatusBadge(booking.status)}
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
+                  
+                  <div className="booking-info-grid">
+                    <div className="info-item">
+                      <MapPin size={16} color="#64748b" />
+                      <span>{booking.address}</span>
+                    </div>
+                    <div className="info-item">
+                      <Calendar size={16} color="#64748b" />
+                      <span>{booking.date}</span>
+                    </div>
+                    <div className="info-item">
+                      <Clock size={16} color="#64748b" />
+                      <span>{booking.time}</span>
+                    </div>
+                    <div className="info-item">
+                      <Fuel size={16} color="#64748b" />
+                      <span>{booking.fuelType} • {booking.amount}</span>
+                    </div>
+                  </div>
+                  <p className="booking-id">Booking ID: <strong>{booking.id}</strong></p>
+                </div>
 
-          {/* Right Column - Map */}
-          <div>
-            <div className="map-card">
-              <div className="map-placeholder">
-                <MapPin size={40} color="#059669" />
-                <p style={{ marginTop: '10px', fontWeight: '500' }}>Map View</p>
-                <p style={{ fontSize: '12px' }}>Lat: {station.coordinates.lat}, Lng: {station.coordinates.lng}</p>
-              </div>
-              <div className="map-footer">
-                <a 
-                  href={`https://www.google.com/maps/dir/?api=1&destination=${station.coordinates.lat},${station.coordinates.lng}`} 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="map-link"
-                >
-                  Get Directions on Google Maps
-                </a>
-              </div>
-            </div>
-          </div>
+                {/* Right Side: Actions */}
+                <div className="booking-actions">
+                  {booking.status === 'upcoming' && (
+                    <>
+                      <Link to={`/station-details/${booking.stationId}`} className="btn-secondary">
+                        <Navigation size={16} /> Navigate
+                      </Link>
+                      <button 
+                        className="btn-danger-outline" 
+                        onClick={() => handleCancel(booking.id)}
+                      >
+                        Cancel Booking
+                      </button>
+                      <p className="cancel-note"><AlertCircle size={12}/> Free cancellation up to 1 hr before</p>
+                    </>
+                  )}
+                  {booking.status === 'completed' && (
+                    <button className="btn-secondary">Download Receipt</button>
+                  )}
+                  {booking.status === 'cancelled' && (
+                    <p className="text-muted">Refund processed to original payment method.</p>
+                  )}
+                </div>
 
+              </div>
+            ))
+          )}
         </div>
+
       </main>
     </div>
   );
 };
 
-export default StationDetails;
+export default MyBookings;
