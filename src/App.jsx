@@ -15,6 +15,8 @@ import PublicHeader from "./Pages/Header";
 import UserHeader from "./User/Pages/Header";
 import FindStations from "./User/Pages/FindStations";
 import LiveQueue from "./User/Pages/LiveQueue";
+import MyBookings from "./User/Pages/MyBookings";
+import BookSlot from "./User/Pages/BookSlot";
 // Public Layout
 const PublicLayout = () => (
   <>
@@ -59,6 +61,8 @@ function App() {
         <Route path="/dashboard" element={<div>Welcome to User Dashboard</div>} />
         <Route path="/find-stations" element={<FindStations />} />
          <Route path="/live-queue" element={<LiveQueue />} /> 
+         <Route path="/my-bookings" element={<MyBookings />} />
+         <Route path="/book-slot" element={<BookSlot />} />
       </Route>
 
     </Routes>
