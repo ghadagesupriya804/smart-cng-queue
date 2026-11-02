@@ -1,120 +1,94 @@
-import React, { useState, useEffect, useRef } from "react";
+
+import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Styles/Header.css";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showUserMenu, setShowUserMenu] = useState(false);
+
   const location = useLocation();
-  const dropdownRef = useRef();
   const navigate = useNavigate();
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowUserMenu(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
+  // All User Dashboard Menus
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "About Us", path: "/about" },
-    { name: "Find CNG Stations", path: "/find-stations" },
-    { name: "Contact Us", path: "/contact" },
+    { name: "Dashboard", path: "/dashboard", icon: "📊" },
+    { name: "Find CNG Stations", path: "/find-stations", icon: "📍" },
+    { name: "Station Details", path: "/station-details", icon: "⛽" },
+    { name: "Live Queue Status", path: "/live-queue", icon: "🔴" },
+    { name: "Book Queue Slot", path: "/book-slot", icon: "🎟️" },
+    { name: "Booking Confirmation", path: "/booking-confirmation", icon: "✅" },
+    { name: "My Bookings", path: "/my-bookings", icon: "📋" },
+    { name: "Booking Details", path: "/booking-details", icon: "📄" },
+    { name: "My Vehicles", path: "/my-vehicles", icon: "🚗" },
+    { name: "My Profile", path: "/my-profile", icon: "👤" },
+    { name: "Notifications", path: "/notifications", icon: "🔔" },
+    { name: "Settings", path: "/settings", icon: "⚙️" },
+    { name: "Help & Support", path: "/help-support", icon: "❓" },
   ];
 
   const handleLogout = () => {
-    // Add your logout logic here
     localStorage.removeItem("token");
     navigate("/login");
   };
 
   return (
-    <header className="header">
+    <header className="header user-header">
+
       <div className="header-container">
+
         {/* Logo */}
-        <Link to="/" className="logo">
+        <Link to="/dashboard" className="logo">
           <span className="logo-icon">⛽</span>
           <span className="logo-text">Smart CNG</span>
         </Link>
 
-        {/* Hamburger Menu (Mobile) */}
+        {/* Mobile Hamburger */}
         <button
           className="hamburger"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle menu"
         >
-          <span className={isMenuOpen ? "open" : ""}></span>
-          <span className={isMenuOpen ? "open" : ""}></span>
-          <span className={isMenuOpen ? "open" : ""}></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
 
-        {/* Navigation */}
-        <nav className={`nav ${isMenuOpen ? "active" : ""}`}>
-          <ul className="nav-list">
+        {/* User Dashboard Navigation */}
+        <nav className={`nav user-nav ${isMenuOpen ? "active" : ""}`}>
+
+          <ul className="nav-list user-nav-list">
+
             {navLinks.map((link) => (
               <li key={link.path}>
                 <Link
                   to={link.path}
-                  className={location.pathname === link.path ? "active" : ""}
+                  className={
+                    location.pathname === link.path ? "active" : ""
+                  }
                   onClick={() => setIsMenuOpen(false)}
                 >
+                  <span>{link.icon}</span>
                   {link.name}
                 </Link>
               </li>
             ))}
-          </ul>
 
-          <ul className="auth-list">
-            {/* --- NEW USER PROFILE DROPDOWN --- */}
-            <li className="login-dropdown-container" ref={dropdownRef}>
+            {/* Logout */}
+            <li>
               <button
-                className={`login-btn user-btn ${showUserMenu ? "active" : ""}`}
-                onClick={() => setShowUserMenu(!showUserMenu)}
+                className="user-logout-btn"
+                onClick={handleLogout}
               >
-                <div className="avatar">A</div>
-                <span>My Account</span>
-                <svg className={`chevron ${showUserMenu ? "rotate" : ""}`} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+                🚪 Logout
               </button>
-
-              {/* Dropdown Menu */}
-              <div className={`login-dropdown-menu user-menu ${showUserMenu ? "show" : ""}`}>
-                <div className="menu-header">
-                  <strong>Aarush</strong>
-                  <span>aarush@example.com</span>
-                </div>
-                <hr />
-                <Link to="/dashboard" className="dropdown-item" onClick={() => setShowUserMenu(false)}>
-                  📊 User Dashboard
-                </Link>
-                <Link to="/my-bookings" className="dropdown-item" onClick={() => setShowUserMenu(false)}>
-                  🎟️ My Bookings
-                </Link>
-                <Link to="/my-vehicles" className="dropdown-item" onClick={() => setShowUserMenu(false)}>
-                  🚗 My Vehicles
-                </Link>
-                <Link to="/my-profile" className="dropdown-item" onClick={() => setShowUserMenu(false)}>
-                  👤 My Profile
-                </Link>
-                <Link to="/settings" className="dropdown-item" onClick={() => setShowUserMenu(false)}>
-                  ⚙️ Settings
-                </Link>
-                <hr />
-                <button onClick={handleLogout} className="dropdown-item logout-btn">
-                  🚪 Logout
-                </button>
-              </div>
             </li>
-            {/* --- END USER PROFILE DROPDOWN --- */}
+
           </ul>
+
         </nav>
+
       </div>
+
     </header>
   );
 };

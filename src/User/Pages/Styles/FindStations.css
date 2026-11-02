@@ -2,7 +2,7 @@
 .find-stations-page {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   position: relative;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
