@@ -195,7 +195,7 @@ const Header = () => {
               
               {activeDropdown === "profile" && (
                 <div className="dropdown-menu right-align">
-                  <Link to="/profile" onClick={closeMenu}>My Profile</Link>
+                <Link to="/profile" onClick={closeMenu}>My Profile</Link>
                   <Link to="/notifications" onClick={closeMenu}>Notifications 🔔</Link>
                   <Link to="/settings" onClick={closeMenu}>Settings ⚙️</Link>
                   <Link to="/help" onClick={closeMenu}>Help & Support ❓</Link>

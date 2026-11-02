@@ -11,6 +11,7 @@ import ForgotPassword from "./Pages/ForgotPassword";
 import AdminLogin from "./Pages/AdminLogin";
 import PublicHeader from "./Pages/Header";
 
+
 // User Pages
 import UserHeader from "./User/Pages/Header";
 import FindStations from "./User/Pages/FindStations";
@@ -20,6 +21,7 @@ import MyBookings from "./User/Pages/MyBookings";
 import BookSlot from "./User/Pages/BookSlot";
 import BookingDetails from "./User/Pages/BookingDetails";
 import BookingConfirmation from "./User/Pages/BookingConfirmation";
+import Profile from "./User/Pages/Profile";
 // Public Layout
 const PublicLayout = () => (
   <>
@@ -70,6 +72,8 @@ function App() {
         <Route path="/book-slot" element={<BookSlot />} />
         <Route path="/booking-details" element={<BookingDetails />} />
         <Route path="/booking-confirmation" element={<BookingConfirmation />} />
+         <Route path="/profile" element={<Profile />} />
+
       </Route>
 
       {/* Fallback */}
