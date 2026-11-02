@@ -25,6 +25,8 @@ import MyVehicles from "./User/Pages/MyVehicles";
 import Profile from "./User/Pages/Profile";
 import Settings from "./User/Pages/Settings";
 import Notifications from "./User/Pages/Notifications";
+import HelpSupport from "./User/Pages/HelpSupport";
+
 // Public Layout
 const PublicLayout = () => (
   <>
@@ -79,6 +81,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/notifications" element={<Notifications />} />
+         <Route path="/help-support" element={<HelpSupport />} />
 
       </Route>
 

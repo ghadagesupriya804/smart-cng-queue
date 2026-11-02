@@ -198,7 +198,7 @@ const Header = () => {
                 <Link to="/profile" onClick={closeMenu}>My Profile</Link>
                   <Link to="/notifications" onClick={closeMenu}>Notifications 🔔</Link>
                   <Link to="/settings" onClick={closeMenu}>Settings ⚙️</Link>
-                  <Link to="/help" onClick={closeMenu}>Help & Support ❓</Link>
+                  <Link to="/help-support" onClick={closeMenu}>Help & Support ❓</Link>
                   <div className="divider"></div>
                   <Link to="/logout" className="logout-text" onClick={closeMenu}>Logout</Link>
                 </div>
