@@ -23,6 +23,7 @@ import BookingDetails from "./User/Pages/BookingDetails";
 import BookingConfirmation from "./User/Pages/BookingConfirmation";
 import MyVehicles from "./User/Pages/MyVehicles";
 import Profile from "./User/Pages/Profile";
+import Settings from "./User/Pages/Settings";
 import Notifications from "./User/Pages/Notifications";
 // Public Layout
 const PublicLayout = () => (
@@ -76,6 +77,7 @@ function App() {
         <Route path="/booking-confirmation" element={<BookingConfirmation />} />
         <Route path="/my-vehicles" element={<MyVehicles />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/settings" element={<Settings />} />
         <Route path="/notifications" element={<Notifications />} />
 
       </Route>
