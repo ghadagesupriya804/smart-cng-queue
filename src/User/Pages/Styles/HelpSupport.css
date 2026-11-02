@@ -62,7 +62,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   max-width: 1000px;
-  margin: -30px auto 50px; /* Overlap hero section slightly */
+  margin: -30px auto 50px;
   padding: 0 20px;
   position: relative;
   z-index: 10;
@@ -121,9 +121,10 @@
   display: grid;
   grid-template-columns: 1fr 400px;
   gap: 40px;
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 20px;
+  align-items: start;
 }
 
 /* --- FAQ SECTION --- */
@@ -199,46 +200,63 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- CONTACT FORM SECTION --- */
+/* =========================================
+   RIGHT SIDE: CONTACT FORM (PERFECT ALIGN FIXED)
+   ========================================= */
 .support-card {
   background: #ffffff;
-  padding: 30px;
+  padding: 35px 30px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-  border-top: 5px solid #00a896;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border-top: 6px solid #00a896;
   position: sticky;
   top: 100px;
+  display: flex;
+  flex-direction: column;
 }
 
 .support-card h2 {
-  font-size: 22px;
+  font-size: 26px;
   color: #0f2a3a;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  text-align: left;
 }
 
 .support-card > p {
   font-size: 14px;
   color: #6b7c93;
   margin-bottom: 25px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.support-card form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .form-group {
   margin-bottom: 18px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group label {
   display: block;
   font-size: 13px;
-  font-weight: 600;
-  color: #4a5a6a;
-  margin-bottom: 6px;
+  font-weight: 700;
+  color: #334e5c;
+  margin-bottom: 8px;
+  text-align: left;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
   width: 100%;
-  padding: 12px 15px;
+  padding: 14px 15px;
   border: 1.5px solid #dbe3eb;
   border-radius: 10px;
   font-size: 14px;
@@ -246,6 +264,7 @@
   outline: none;
   transition: 0.2s;
   font-family: inherit;
+  box-sizing: border-box; /* महत्त्वाचं: पॅडिंगमुळे रुंदी वाढू नये म्हणून */
 }
 
 .form-group input:focus,
@@ -258,16 +277,17 @@
 
 .form-group textarea {
   resize: vertical;
+  min-height: 100px;
 }
 
 .btn-submit {
   width: 100%;
-  padding: 14px;
+  padding: 16px;
   background: #00a896;
   color: #ffffff;
   border: none;
   border-radius: 10px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   cursor: pointer;
   transition: 0.3s;
@@ -293,6 +313,7 @@
 
   .support-card {
     position: static;
+    margin-top: 30px;
   }
 }
 
