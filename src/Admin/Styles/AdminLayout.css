@@ -1,0 +1,15 @@
+/* --- ADMIN LAYOUT --- */
+.admin-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f3f6f9; /* Slightly grey background for Admin */
+}
+
+.admin-content {
+  flex: 1; /* Takes up the remaining space */
+  padding: 20px; /* Some space on the sides */
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
