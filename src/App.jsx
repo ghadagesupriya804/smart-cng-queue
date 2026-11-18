@@ -1,7 +1,9 @@
 
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 
-// Public Pages
+// ==================================================
+// PUBLIC PAGES
+// ==================================================
 import Home from "./Pages/Home";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
@@ -11,8 +13,9 @@ import ForgotPassword from "./Pages/ForgotPassword";
 import AdminLogin from "./Pages/AdminLogin";
 import PublicHeader from "./Pages/Header";
 
-
-// User Pages
+// ==================================================
+// USER PAGES
+// ==================================================
 import UserHeader from "./User/Pages/Header";
 import FindStations from "./User/Pages/FindStations";
 import StationDetails from "./User/Pages/StationDetails";
@@ -27,66 +30,161 @@ import Settings from "./User/Pages/Settings";
 import Notifications from "./User/Pages/Notifications";
 import HelpSupport from "./User/Pages/HelpSupport";
 
-// Public Layout
-const PublicLayout = () => (
-  <>
-    <PublicHeader />
-    <Outlet />
-  </>
-);
+// ==================================================
+// ADMIN PAGES
+// ==================================================
+import AdminLayout from "./Admin/Pages/AdminLayout";
 
-// User Layout
-const UserLayout = () => (
-  <>
-    <UserHeader />
-    <Outlet />
-  </>
-);
+// ==================================================
+// PUBLIC LAYOUT
+// ==================================================
+const PublicLayout = () => {
+  return (
+    <>
+      <PublicHeader />
+      <Outlet />
+    </>
+  );
+};
 
-// Authentication
+// ==================================================
+// USER LAYOUT
+// ==================================================
+const UserLayout = () => {
+  return (
+    <>
+      <UserHeader />
+      <Outlet />
+    </>
+  );
+};
+
+// ==================================================
+// USER AUTHENTICATION
+// ==================================================
 const RequireUser = () => {
   const token = localStorage.getItem("token");
 
-  return token ? <UserLayout /> : <Navigate to="/login" replace />;
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <Outlet />;
 };
 
+// ==================================================
+// ADMIN AUTHENTICATION
+// ==================================================
+const RequireAdmin = () => {
+  const adminToken = localStorage.getItem("adminToken");
+
+  if (!adminToken) {
+    return <Navigate to="/admin-login" replace />;
+  }
+
+  return <Outlet />;
+};
+
+// ==================================================
+// MAIN APP
+// ==================================================
 function App() {
   return (
     <Routes>
 
-      {/* Public Routes */}
+      {/* ==========================================
+          PUBLIC ROUTES
+      ========================================== */}
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
       </Route>
 
-      {/* Authentication Routes */}
+      {/* ==========================================
+          AUTHENTICATION ROUTES
+      ========================================== */}
       <Route path="/login" element={<Login />} />
+
       <Route path="/signup" element={<Signup />} />
+
       <Route path="/forgot-password" element={<ForgotPassword />} />
+
       <Route path="/admin-login" element={<AdminLogin />} />
 
-      {/* User Routes */}
-      <Route element={<RequireUser />}>
-        <Route path="/dashboard" element={<div>Welcome to User Dashboard</div>} />
-        <Route path="/find-stations" element={<FindStations />} />
-        <Route path="/station-details" element={<StationDetails />} />
-        <Route path="/live-queue" element={<LiveQueue />} />
-        <Route path="/my-bookings" element={<MyBookings />} />
-        <Route path="/book-slot" element={<BookSlot />} />
-        <Route path="/booking-details" element={<BookingDetails />} />
-        <Route path="/booking-confirmation" element={<BookingConfirmation />} />
-        <Route path="/my-vehicles" element={<MyVehicles />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/notifications" element={<Notifications />} />
-         <Route path="/help-support" element={<HelpSupport />} />
 
+      {/* ==========================================
+          USER MODULE
+      ========================================== */}
+      <Route element={<RequireUser />}>
+        <Route element={<UserLayout />}>
+
+          <Route
+            path="/dashboard"
+            element={<div>Welcome to User Dashboard</div>}
+          />
+
+          <Route path="/find-stations" element={<FindStations />} />
+
+          <Route path="/station-details" element={<StationDetails />} />
+
+          <Route path="/live-queue" element={<LiveQueue />} />
+
+          <Route path="/my-bookings" element={<MyBookings />} />
+
+          <Route path="/book-slot" element={<BookSlot />} />
+
+          <Route path="/booking-details" element={<BookingDetails />} />
+
+          <Route
+            path="/booking-confirmation"
+            element={<BookingConfirmation />}
+          />
+
+          <Route path="/my-vehicles" element={<MyVehicles />} />
+
+          <Route path="/profile" element={<Profile />} />
+
+          <Route path="/settings" element={<Settings />} />
+
+          <Route path="/notifications" element={<Notifications />} />
+
+          <Route path="/help-support" element={<HelpSupport />} />
+
+        </Route>
       </Route>
 
-      {/* Fallback */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+
+      {/* ==========================================
+          ADMIN MODULE - SEPARATE AUTHENTICATION
+      ========================================== */}
+      <Route element={<RequireAdmin />}>
+        <Route path="/admin" element={<AdminLayout />}>
+
+          {/* ADMIN DASHBOARD */}
+          <Route
+            index
+            element={
+              <div>
+                <h1>Welcome to Smart CNG Admin Dashboard</h1>
+                <p>Manage your Smart CNG system here.</p>
+              </div>
+            }
+          />
+
+          {/* ADD MORE ADMIN PAGE ROUTES HERE */}
+
+        </Route>
+      </Route>
+
+
+      {/* ==========================================
+          FALLBACK ROUTE
+      ========================================== */}
+      <Route
+        path="*"
+        element={<Navigate to="/" replace />}
+      />
 
     </Routes>
   );

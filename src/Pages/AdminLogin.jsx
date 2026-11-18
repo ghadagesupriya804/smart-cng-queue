@@ -44,20 +44,23 @@ const AdminLogin = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+ 
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    const validationErrors = validate();
-    setErrors(validationErrors);
+  const validationErrors = validate();
+  setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length > 0) return;
+  if (Object.keys(validationErrors).length > 0) return;
 
-    // --- ADMIN LOGIN SUCCESS DEMO ---
-    alert("Admin Login Successful! Redirecting to Dashboard...");
-    
-    // (In a real app, you would make an API call here and verify the token)
-    navigate("/admin"); // Redirects directly to the admin dashboard after login
-  };
+  // DEMO ADMIN LOGIN
+  localStorage.setItem("adminToken", "demo-admin-session");
+
+  alert("Admin Login Successful! Redirecting to Dashboard...");
+
+  navigate("/admin", { replace: true });
+};
+
 
   return (
     <div className="login-container">
